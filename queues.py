@@ -28,15 +28,19 @@ class Stack(Queue):
 #Building a Priority Queue Data type
 from collections import deque
 from heapq import heappop, heappush
+from itertools import count
 
 class PriorityQueue:
     def __init__(self):
         self._elements = []
+        self._counter = count()
+
     def enqueue_with_priority(self, priority, value):
-        heappush(self._elements, (-priority, value))
+        element = (-priority, next(self._counter), value)
+        heappush(self._elements, element)
 
     def dequeue(self):
-        return heappop(self._elements)[1]
+        return heappop(self._elements)[-1]
 
 # Testing FIFO queue
 
@@ -127,3 +131,43 @@ class PriorityQueue:
 
 #messages.dequeue()
 #(1, 'Radio station tuned in')
+
+#Testing Prioirity Queue fix
+#messages.dequeue()
+#'Brake pedal depressed'
+
+#messages.dequeue()
+#'Hazard lights turned on'
+
+#messages.dequeue()
+#'Windshield wipers turned on'
+
+#messages.dequeue()
+#'Radio station tuned in'
+
+#Not supported tuple comparisons
+#from dataclasses import dataclass
+
+#@dataclass
+#class Message:
+#     event: str
+
+
+#wipers = Message("Windshield wipers turned on")
+#hazard_lights = Message("Hazard lights turned on")
+
+#wipers < hazard_lights
+#Traceback (most recent call last):
+
+#TypeError: '<' not supported between instances of 'Message' and 'Message'
+
+#Fix is to enqueue with different priorities
+#messages = PriorityQueue()
+#messages.enqueue_with_priority(CRITICAL, wipers)
+#messages.enqueue_with_priority(IMPORTANT, hazard_lights)
+
+#Failing because of two messages being equal priority
+#messages.enqueue_with_priority(CRITICAL, Message("ABS engaged"))
+#Traceback (most recent call last):
+
+#TypeError: '<' not supported between instances of 'Message' and 'Message'
