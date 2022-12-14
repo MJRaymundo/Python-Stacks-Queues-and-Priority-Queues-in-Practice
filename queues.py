@@ -1,4 +1,6 @@
+# Mark john M. Raymundo CoE 2-2 Data Structure and Algorithms
 # queues.py
+# Source: https://realpython.com/queue-in-python/#implementing-queues-in-python
 
 from collections import deque
 
@@ -22,6 +24,20 @@ class Queue:
 class Stack(Queue):
     def dequeue(self):
         return self._elements.pop()
+
+#Building a Priority Queue Data type
+from collections import deque
+from heapq import heappop, heappush
+
+class PriorityQueue:
+    def __init__(self):
+        self._elements = []
+    def enqueue_with_priority(self, priority, value):
+        heappush(self._elements, (-priority, value))
+
+    def dequeue(self):
+        return heappop(self._elements)[1]
+
 # Testing FIFO queue
 
 #from queues import Queue
@@ -65,3 +81,49 @@ class Stack(Queue):
 #lifo.pop()
 
 #lifo.pop()
+
+#Heapq
+#from heapq import heappush
+
+#fruits = []
+#heappush(fruits, "orange")
+#heappush(fruits, "apple")
+#heappush(fruits, "banana")
+
+#fruits
+#['apple', 'orange', 'banana']
+
+#Heapq 2
+#from heapq import heappop
+
+#heappop(fruits)
+#'apple'
+
+#fruits
+#['banana', 'orange']
+
+#heapq priority
+#person1 = ("John", "Brown", 42)
+#person2 = ("John", "Doe", 42)
+#person3 = ("John", "Doe", 24)
+
+#person1 < person2
+#True
+#person2 < person3
+#False
+
+#Testing Priority Queue
+#from queues import PriorityQueue
+
+#CRITICAL = 3
+#IMPORTANT = 2
+#NEUTRAL = 1
+
+#messages = PriorityQueue()
+#messages.enqueue_with_priority(IMPORTANT, "Windshield wipers turned on")
+#messages.enqueue_with_priority(NEUTRAL, "Radio station tuned in")
+#messages.enqueue_with_priority(CRITICAL, "Brake pedal depressed")
+#messages.enqueue_with_priority(IMPORTANT, "Hazard lights turned on")
+
+#messages.dequeue()
+#(1, 'Radio station tuned in')
