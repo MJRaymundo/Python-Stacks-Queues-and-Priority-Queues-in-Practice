@@ -18,6 +18,10 @@ class Queue:
 
     def dequeue(self):
         return self._elements.popleft()
+
+class Stack(Queue):
+    def dequeue(self):
+        return self._elements.pop()
 # Testing FIFO queue
 
 #from queues import Queue
