@@ -3,8 +3,15 @@
 # Source: https://realpython.com/queue-in-python/#implementing-queues-in-python
 
 from collections import deque
+#Refactoring the Code Using a Mixin Class
+class IterableMixin:
+    def __len__(self):
+        return len(self._elements)
 
-class Queue:
+    def __iter__(self):
+        while len(self) > 0:
+            yield self.dequeue()
+class Queue(IterableMixin):
     def __init__(self, *elements):
         self._elements = deque(elements)
 
@@ -21,6 +28,7 @@ class Queue:
     def dequeue(self):
         return self._elements.popleft()
 
+#Building a Stack Queue Type
 class Stack(Queue):
     def dequeue(self):
         return self._elements.pop()
@@ -30,7 +38,7 @@ from collections import deque
 from heapq import heappop, heappush
 from itertools import count
 
-class PriorityQueue:
+class PriorityQueue(IterableMixin):
     def __init__(self):
         self._elements = []
         self._counter = count()
