@@ -6,6 +6,8 @@ from typing import NamedTuple
 import networkx as nx
 from queues import Queue
 
+#Object Representation of the Cities and Roads
+#Custom data type representing a city
 class City(NamedTuple):
     name: str
     country: str
@@ -23,6 +25,7 @@ class City(NamedTuple):
             longitude=float(attrs["longitude"]),
         )
 
+#helper function to create a new graph instance
 def load_graph(filename, node_factory):
     graph = nx.nx_agraph.read_dot(filename)
     nodes = {
@@ -34,6 +37,7 @@ def load_graph(filename, node_factory):
         for name1, name2, weights in graph.edges(data=True)
     )
 
+#Breadth-First Search Using a FIFO Queue
 def breadth_first_traverse(graph, source):
     queue = Queue(source)
     visited = {source}
@@ -47,3 +51,21 @@ def breadth_first_search(graph, source, predicate):
     for node in breadth_first_traverse(graph, source):
         if predicate(node):
             return node
+
+#Shortest Path Using Breadth-First Traversal
+def shortest_path(graph, source, destination, order_by= None):
+    queue = Queue(source)
+    visited = {source}
+    previous = {}
+    while queue:
+        node = queue.dequeue()
+        neighbors = list(graph.neighbors(node))
+        if order_by:
+            neighbors.sort(key=order_by)
+        for neighbor in neighbors:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.enqueue(neighbor)
+                previous[neighbor] == node
+                if neighbor == destination:
+                    return retrace(previous, source, destination)
