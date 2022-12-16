@@ -95,3 +95,16 @@
 
 #for i, path in enumerate(nx.all_shortest_paths(graph, city1, city2), 1):
 #    print(f"{i}.", " → ".join(city.name for city in path))
+
+#Testing Shortest Path
+#from graph import shortest_path
+
+#" → ".join(city.name for city in shortest_path(graph, city1, city2))
+
+#def by_latitude(city):
+#    return -city.latitude
+
+#" → ".join(
+#    city.name
+#    for city in shortest_path(graph, city1, city2, by_latitude)
+#)
