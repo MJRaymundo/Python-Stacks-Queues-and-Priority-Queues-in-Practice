@@ -17,7 +17,8 @@ async def main(args):
     try:
         links = Counter()
         #Updated FIFO queue to LIFO queue
-        queue = asyncio.LifoQueue()
+        #Updated LIFO queue to Priority queue
+        queue = asyncio.PriorityQueue()
         tasks = [
             asyncio.create_task(
                 worker(
