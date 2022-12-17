@@ -16,7 +16,8 @@ async def main(args):
     session = aiohttp.ClientSession()
     try:
         links = Counter()
-        queue = asyncio.Queue()
+        #Updated FIFO queue to LIFO queue
+        queue = asyncio.LifoQueue()
         tasks = [
             asyncio.create_task(
                 worker(
