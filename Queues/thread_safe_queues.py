@@ -32,6 +32,43 @@ PRODUCTS = (
     ":yo-yo:",
 )
 
+#A class to encapsulate both producer and consumer
+class Worker(threading.Thread):
+    def __init__(self, speed, buffer):
+        super().__init__(daemon=True)
+        self.speed = speed
+        self.buffer = buffer
+        self.product = None
+        self.working = False
+        self.progress = 0
+
+    def run(self):
+        while True:
+            self.product = choice(self.products)
+            self.simulate_work()
+            self.buffer.put(self.product)
+            self.buffer.put(self.product)
+            self.simulate_idle()
+
+#Adding a Consumer Class
+class Consumer(Worker):
+    def __init__(self, speed, buffer, products):
+        super().__init__(speed, buffer)
+        self.products = products
+
+    def run(self):
+        while True:
+            self.product = choice(self.products)
+            self.simulate_work()
+            self.buffer.put(self.product)
+            self.simulate_idle()
+
+#Adding a Producer class
+class Producer(Worker):
+    def __init__(self, speed, buffer, products):
+        super().__init__(speed, buffer)
+        self.products = products
+
 def main(args):
     buffer = QUEUE_TYPES[args.queue]()
 #Added Products in main
@@ -67,40 +104,6 @@ if __name__ == "__main__":
         main(parse_args())
     except KeyboardInterrupt:
         pass
-
-
-#A class to encapsulate both producer and consumer
-class Worker(threading.Thread):
-    def __init__(self, speed, buffer):
-        super().__init__(daemon=True)
-        self.speed = speed
-        self.buffer = buffer
-        self.product = None
-        self.working = False
-        self.progress = 0
-
-#Adding a Producer class
-class Producer(Worker):
-    def __init__(self, speed, buffer, products):
-        super().__init__(speed, buffer)
-        self.products = products
-
-    def run(self):
-        while True:
-            self.product = choice(self.products)
-            self.simulate_work()
-            self.buffer.put(self.product)
-            self.buffer.put(self.product)
-            self.simulate_idle()
-
-#Adding a Consumer Class
-class Consumer(Worker):
-    def run(self):
-        while True:
-            self.product = self.buffer.get()
-            self.simulate_work()
-            self.buffer.task_done()
-            self.simulate_idle()
 
 #Adding 2 new data types
 @dataclass(order=True)
