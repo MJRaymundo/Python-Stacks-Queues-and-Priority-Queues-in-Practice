@@ -40,6 +40,9 @@ def main(args):
         for indices in chunk_indices(len(combinations), len(workers)):
             queue_in.put(Job(combinations, *indices))
 
+#Added poison pill element in input queue
+        queue_in.put(POISON_PILL)
+
     while any(worker.is_alive() for worker in workers):
         try:
             solution = queue_out.get(timeout=0.1)
