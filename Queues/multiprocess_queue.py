@@ -5,8 +5,8 @@ from hashlib import md5
 from itertools import product
 from string import ascii_lowercase
 
-def reverse_md5(hash_value, alphabet=ascii_lowercase, max_lenth=6):
-    for lenth in range(1, max_length + 1):
+def reverse_md5(hash_value, alphabet=ascii_lowercase, max_length=6):
+    for length in range(1, max_length + 1):
         for combination in product(alphabet, repeat=length):
             text_bytes = "".join(combination).encode("utf-8")
             hashed = md5(text_bytes).hexdigest()
@@ -20,3 +20,13 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+#Adding chunk indices helper function
+def chunk_indices(length, num_chunks):
+    start = 0
+    while num_chunks > 0:
+        num_chunks = min(num_chunks, length)
+        chunk_size = round(length / num_chunks)
+        yield start, (start := start + chunk_size)
+        length -= chunk_size
+        num_chunks -= 1
