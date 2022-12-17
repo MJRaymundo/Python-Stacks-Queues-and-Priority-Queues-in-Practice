@@ -1,5 +1,6 @@
 import argparse
 from queue import LifoQueue, PriorityQueue, Queue
+import threading
 
 #Using Thread-Safe Queues
 #Entry point to the script that will parse arguments
@@ -26,3 +27,32 @@ if __name__ == "__main__":
         main(parse_args())
     except KeyboardInterrupt:
         pass
+
+#Products the producers will pick at random and pretend to be working on
+PRODUCTS = (
+    ":balloon:",
+    ":cookie:",
+    ":crystal_ball:",
+    ":diving_mask:",
+    ":flashlight:",
+    ":gem:",
+    ":gift:",
+    ":kite:",
+    ":party_popper:",
+    ":postal_horn:",
+    ":ribbon:",
+    ":rocket:",
+    ":teddy_bear:",
+    ":thread:",
+    ":yo-yo:",
+)
+
+#A class to encapsulate both producer and consumer
+class Worker(threading.Thread):
+    def __init__(self, speed, buffer):
+        super().__init__(daemon=True)
+        self.speed = speed
+        self.buffer = buffer
+        self.product = None
+        self.working = False
+        self.progress = 0
