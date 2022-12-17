@@ -1,6 +1,7 @@
 import argparse
 from queue import LifoQueue, PriorityQueue, Queue
 import threading
+from random import choice, randint
 
 #Using Thread-Safe Queues
 #Entry point to the script that will parse arguments
@@ -56,3 +57,17 @@ class Worker(threading.Thread):
         self.product = None
         self.working = False
         self.progress = 0
+
+#Adding a Producer class
+class Producer(Worker):
+    def __init__(self, speed, buffer, products):
+        super().__init__(speed, buffer)
+        self.products = products
+
+    def run(self):
+        while True:
+            self.product = choice(self.products)
+            self.simulate_work()
+            self.buffer.put(self.product)
+            self.buffer.put(self.product)
+            self.simulate_idle()
