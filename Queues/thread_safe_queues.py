@@ -13,6 +13,25 @@ QUEUE_TYPES = {
     "heap": PriorityQueue
 }
 
+#Products the producers will pick at random and pretend to be working on
+PRODUCTS = (
+    ":balloon:",
+    ":cookie:",
+    ":crystal_ball:",
+    ":diving_mask:",
+    ":flashlight:",
+    ":gem:",
+    ":gift:",
+    ":kite:",
+    ":party_popper:",
+    ":postal_horn:",
+    ":ribbon:",
+    ":rocket:",
+    ":teddy_bear:",
+    ":thread:",
+    ":yo-yo:",
+)
+
 def main(args):
     buffer = QUEUE_TYPES[args.queue]()
 #Added Products in main
@@ -49,24 +68,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         pass
 
-#Products the producers will pick at random and pretend to be working on
-PRODUCTS = (
-    ":balloon:",
-    ":cookie:",
-    ":crystal_ball:",
-    ":diving_mask:",
-    ":flashlight:",
-    ":gem:",
-    ":gift:",
-    ":kite:",
-    ":party_popper:",
-    ":postal_horn:",
-    ":ribbon:",
-    ":rocket:",
-    ":teddy_bear:",
-    ":thread:",
-    ":yo-yo:",
-)
 
 #A class to encapsulate both producer and consumer
 class Worker(threading.Thread):

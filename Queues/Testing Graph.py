@@ -84,29 +84,29 @@
 #    print(city.name)
 
 #Shortest Path Using Breadth-First Traversal
-import networkx as nx
-from graph import City, load_graph
+#import networkx as nx
+#from graph import City, load_graph
 
-nodes, graph = load_graph("roadmap.dot", City.from_dict)
+#nodes, graph = load_graph("roadmap.dot", City.from_dict)
 
-city1 = nodes["aberdeen"]
-city2 = nodes["perth"]
+#city1 = nodes["aberdeen"]
+#city2 = nodes["perth"]
 
-for i, path in enumerate(nx.all_shortest_paths(graph, city1, city2), 1):
-    print(f"{i}.", " → ".join(city.name for city in path))
+#for i, path in enumerate(nx.all_shortest_paths(graph, city1, city2), 1):
+#    print(f"{i}.", " → ".join(city.name for city in path))
 
 #Testing Shortest Path
-from graph import shortest_path
+#from graph import shortest_path
 
-" → ".join(city.name for city in shortest_path(graph, city1, city2))
+#" → ".join(city.name for city in shortest_path(graph, city1, city2))
 
-def by_latitude(city):
-    return -city.latitude
+#def by_latitude(city):
+#    return -city.latitude
 
-" → ".join(
-    city.name
-    for city in shortest_path(graph, city1, city2, by_latitude)
-)
+#" → ".join(
+#    city.name
+#    for city in shortest_path(graph, city1, city2, by_latitude)
+#)
 
 #Checking the code for seeing if two roads remain connected
 #from graph import connected
@@ -144,7 +144,6 @@ def by_latitude(city):
 #nodes, graph = load_graph("roadmap.dot", City.from_dict)
 #city = dfs(graph, nodes["edinburgh"], is_twentieth_century)
 #city.name
-
 
 #for city in depth_first_traverse(graph, nodes["edinburgh"]):
 #    print(city.name)
