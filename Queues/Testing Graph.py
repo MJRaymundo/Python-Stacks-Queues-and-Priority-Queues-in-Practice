@@ -3,26 +3,26 @@
 # Source: https://realpython.com/queue-in-python/#implementing-queues-in-python
 
 #Object Representation of the Cities and Roads
-import networkx as nx
+#import networkx as nx
 #graph = nx.nx_agraph.read_dot("roadmap.dot")
 #print(graph.nodes["london"])
 
 #Testing load_graph
-from graph import City, load_graph
+#from graph import City, load_graph
 
-nodes, graph = load_graph("roadmap.dot", City.from_dict)
+#nodes, graph = load_graph("roadmap.dot", City.from_dict)
 
 #nodes["london"]
 
 #print(graph)
 
 #Looking for neighbors
-for neighbor in graph.neighbors(nodes["london"]):
-    print(neighbor.name)
+#for neighbor in graph.neighbors(nodes["london"]):
+#    print(neighbor.name)
 
 #Neighbors with weights
 #for neighbor, weights in graph[nodes["london"]].items():
-#     print(weights["distance"], neighbor.name)
+#    print(weights["distance"], neighbor.name)
 
 #Sorting neighbors
 #def sort_by(neighbors, strategy):
@@ -40,13 +40,13 @@ for neighbor in graph.neighbors(nodes["london"]):
 
 #def is_twentieth_century(year):
 #    return year and 1901 <= year <= 2000
-#
+
 #nodes, graph = load_graph("roadmap.dot", City.from_dict)
 #for node in nx.bfs_tree(graph, nodes["edinburgh"]):
 #    print("📍", node.name)
 #    if is_twentieth_century(node.year):
-#         print("Found:", node.name, node.year)
-#         break
+#        print("Found:", node.name, node.year)
+#        break
 #else:
 #    print("Not found")
 
@@ -84,29 +84,29 @@ for neighbor in graph.neighbors(nodes["london"]):
 #    print(city.name)
 
 #Shortest Path Using Breadth-First Traversal
-#import networkx as nx
-#from graph import City, load_graph
+import networkx as nx
+from graph import City, load_graph
 
-#nodes, graph = load_graph("roadmap.dot", City.from_dict)
+nodes, graph = load_graph("roadmap.dot", City.from_dict)
 
-#city1 = nodes["aberdeen"]
-#city2 = nodes["perth"]
+city1 = nodes["aberdeen"]
+city2 = nodes["perth"]
 
-#for i, path in enumerate(nx.all_shortest_paths(graph, city1, city2), 1):
-#    print(f"{i}.", " → ".join(city.name for city in path))
+for i, path in enumerate(nx.all_shortest_paths(graph, city1, city2), 1):
+    print(f"{i}.", " → ".join(city.name for city in path))
 
 #Testing Shortest Path
-#from graph import shortest_path
+from graph import shortest_path
 
-#" → ".join(city.name for city in shortest_path(graph, city1, city2))
+" → ".join(city.name for city in shortest_path(graph, city1, city2))
 
-#def by_latitude(city):
-#    return -city.latitude
+def by_latitude(city):
+    return -city.latitude
 
-#" → ".join(
-#    city.name
-#    for city in shortest_path(graph, city1, city2, by_latitude)
-#)
+" → ".join(
+    city.name
+    for city in shortest_path(graph, city1, city2, by_latitude)
+)
 
 #Checking the code for seeing if two roads remain connected
 #from graph import connected

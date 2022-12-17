@@ -69,7 +69,7 @@ def shortest_path(graph, source, destination, order_by= None):
             if neighbor not in visited:
                 visited.add(neighbor)
                 queue.enqueue(neighbor)
-                previous[neighbor] == node
+                previous[neighbor] = node
                 if neighbor == destination:
                     return retrace(previous, source, destination)
 
