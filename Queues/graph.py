@@ -4,8 +4,10 @@
 
 from typing import NamedTuple
 import networkx as nx
-from queues import Queue, Stack
+from queues import MutableMinHeap, Queue, Stack
 from collections import deque
+from math import inf as infinity
+
 
 #Object Representation of the Cities and Roads
 #Custom data type representing a city
@@ -129,3 +131,25 @@ def search(traverse, graph, source, predicate, order_by = None):
     for node in traverse(graph, source, order_by):
         if predicate(node):
             return node
+
+#Connecting all the elements
+def dijkstra_shortest_path(graph, source, destination, weigh_factory):
+    previous = {}
+    visited = set()
+
+    unvisited = MutableMinHeap()
+    for node in graph.nodes:
+        unvisited[node] = infinity
+    unvisited[source] = 0
+
+    while unvisited:
+        visited.add(node := unvisited.dequeue())
+        for neighbor, weights in graph[node].items():
+            if neighbor not in visited:
+                weight = weigh_factory(weights)
+                new_distance = unvisited[node] + weight
+                if new_distance < unvisited[neighbor]:
+                    unvisited[neighbor] = new_distance
+                    previous[neighbor] = node
+
+    return retrace(previous, source, destination)
