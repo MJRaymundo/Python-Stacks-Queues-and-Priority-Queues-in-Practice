@@ -15,9 +15,11 @@ QUEUE_TYPES = {
 
 def main(args):
     buffer = QUEUE_TYPES[args.queue]()
+#Added Products in main
+    products = PRIORITIZED_PRODUCTS if args.queue == "heap" else PRODUCTS
 #Created producer and consumer threads
     producers = [
-        Producer(args.producer_speed, buffer, PRODUCTS)
+        Producer(args.producer_speed, buffer, products)
         for _ in range(args.producers)
     ]
     consumers = [
@@ -29,7 +31,7 @@ def main(args):
     for consumer in consumers:
         consumer.start()
 
-    view = View(buffer, producer, consumers)
+    view = view(buffer, producer, consumers)
     view.animate()
 
 def parse_args():
