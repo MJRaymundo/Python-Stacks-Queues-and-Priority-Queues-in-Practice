@@ -5,6 +5,8 @@ import asyncio
 from collections import Counter
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
+import sys
+from typing import NamedTuple
 
 import aiohttp
 
@@ -43,3 +45,24 @@ def parse_links(url, html):
         href = anchor.get("href").lower()
         if not href.startswith("javascript"):
             yield urljoin(url, href)
+
+#Adding job data type and worker function
+class Job(NamedTuple):
+    url: str
+    depth: int = 1
+
+async def worker(worker_id, session, queue, links, max_depth):
+    print(f"[{worker_id} starting]", file=sys.stderr)
+    while True:
+        url, depth = await queue.get()
+        links[url] += 1
+        try:
+            if depth <= max_depth:
+                print(f"[{worker_id} {depth=} {url=}]", file=sys.stderr)
+                if html := await fetch_html(session, url):
+                    for link_url in parse_links(url, html):
+                        await queue.put(Job(link_url, depth + 1))
+        except aiohttp.ClientError:
+            print(f"[{worker_id} failed at {url=}]", file=sys.stderr)
+        finally:
+            queue.task_done()
