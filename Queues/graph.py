@@ -8,7 +8,6 @@ from queues import MutableMinHeap, Queue, Stack
 from collections import deque
 from math import inf as infinity
 
-
 #Object Representation of the Cities and Roads
 #Custom data type representing a city
 class City(NamedTuple):

@@ -50,7 +50,7 @@
 #heappush(fruits, "apple")
 #heappush(fruits, "banana")
 
-#fruits
+#print(fruits)
 #['apple', 'orange', 'banana']
 
 #Heapq 2
@@ -59,7 +59,7 @@
 #heappop(fruits)
 #'apple'
 
-#fruits
+#print(fruits)
 #['banana', 'orange']
 
 #heapq priority
@@ -67,10 +67,9 @@
 #person2 = ("John", "Doe", 42)
 #person3 = ("John", "Doe", 24)
 
-#person1 < person2
-#True
-#person2 < person3
-#False
+#print(person1 < person2)
+
+#print(person2 < person3)
 
 #Testing Priority Queue
 #from queues import PriorityQueue
@@ -85,20 +84,22 @@
 #messages.enqueue_with_priority(CRITICAL, "Brake pedal depressed")
 #messages.enqueue_with_priority(IMPORTANT, "Hazard lights turned on")
 
-#messages.dequeue()
+
+#print(messages.dequeue())
+
 #(1, 'Radio station tuned in')
 
 #Testing Prioirity Queue fix
-#messages.dequeue()
+#print(messages.dequeue())
 #'Brake pedal depressed'
 
-#messages.dequeue()
+#print(messages.dequeue())
 #'Hazard lights turned on'
 
-#messages.dequeue()
+#print(messages.dequeue())
 #'Windshield wipers turned on'
 
-#messages.dequeue()
+#print(messages.dequeue())
 #'Radio station tuned in'
 
 #Not supported tuple comparisons
@@ -106,7 +107,7 @@
 
 #@dataclass
 #class Message:
-#     event: str
+#    event: str
 
 
 #wipers = Message("Windshield wipers turned on")

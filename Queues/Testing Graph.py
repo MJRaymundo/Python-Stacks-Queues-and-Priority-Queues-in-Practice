@@ -3,23 +3,22 @@
 # Source: https://realpython.com/queue-in-python/#implementing-queues-in-python
 
 #Object Representation of the Cities and Roads
-#import networkx as nx
+import networkx as nx
 #graph = nx.nx_agraph.read_dot("roadmap.dot")
 #print(graph.nodes["london"])
 
 #Testing load_graph
-#from graph import City, load_graph
+from graph import City, load_graph
 
-#nodes, graph = load_graph("roadmap.dot", City.from_dict)
+nodes, graph = load_graph("roadmap.dot", City.from_dict)
 
 #nodes["london"]
 
 #print(graph)
 
-
 #Looking for neighbors
-#for neighbor in graph.neighbors(nodes["london"]):
-#    print(neighbor.name)
+for neighbor in graph.neighbors(nodes["london"]):
+    print(neighbor.name)
 
 #Neighbors with weights
 #for neighbor, weights in graph[nodes["london"]].items():
