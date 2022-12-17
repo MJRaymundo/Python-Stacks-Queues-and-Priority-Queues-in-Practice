@@ -71,3 +71,12 @@ class Producer(Worker):
             self.buffer.put(self.product)
             self.buffer.put(self.product)
             self.simulate_idle()
+
+#Adding a Consumer Class
+class Consumer(Worker):
+    def run(self):
+        while True:
+            self.product = self.buffer.get()
+            self.simulate_work()
+            self.buffer.task_done()
+            self.simulate_idle()
