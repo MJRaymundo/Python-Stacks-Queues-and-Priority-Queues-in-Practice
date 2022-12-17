@@ -48,10 +48,11 @@ def breadth_first_traverse(graph, source):
             if neighbor not in visited:
                 visited.add(neighbor)
                 queue.enqueue(neighbor)
-def breadth_first_search(graph, source, predicate):
+def breadth_first_search(graph, source, predicate, order_by = None):
     for node in breadth_first_traverse(graph, source):
         if predicate(node):
             return node
+    return search(breadth_first_traverse, graph, source, predicate, order_by)
 
 #Shortest Path Using Breadth-First Traversal
 def shortest_path(graph, source, destination, order_by= None):
@@ -89,6 +90,10 @@ def retrace(previous, source, destination):
 def connected(graph, source, destination):
     return shortest_path(graph, source, destination) is not None
 
+#Depth-first Search
+def depth_first_search(graph, source, predicate, order_by=None):
+    return search(depth_first_traverse, graph, source, predicate, order_by)
+
 #Depth-first Traversal
 def depth_first_traverse(graph, source, order_by=None):
     stack = Stack(source)
@@ -104,7 +109,7 @@ def depth_first_traverse(graph, source, order_by=None):
                 stack.enqueue(neighbor)
 
 #Recursive Depth-first Traversal
-def recursive_depth_first_traverse(graph, source, order_by=None):
+def recursive_depth_first_traverse(graph, source, order_by = None):
     visited = set()
 
     def visit(node):
@@ -118,3 +123,9 @@ def recursive_depth_first_traverse(graph, source, order_by=None):
                 yield from visit(neighbor)
 
     return visit(source)
+
+#Template function for both breadth-first and depth-first traversal
+def search(traverse, graph, source, predicate, order_by = None):
+    for node in traverse(graph, source, order_by):
+        if predicate(node):
+            return node
